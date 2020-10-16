@@ -1,5 +1,6 @@
-import datetime
-import tornado.httpserver
+'''
+该文件同步模拟的服务的被调用方 ,端口为: 8002
+'''
 import tornado.ioloop
 import tornado.options
 import tornado.web

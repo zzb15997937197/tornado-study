@@ -1,0 +1,4 @@
+1. 使用options定义参数:  tornado.options.options.define(), 获取定义的参数:  tornado.options.options.参数
+
+2. 使用parse_config_file()方法取出配置文件里的参数时，需要先使用options.define()方法定义出变量，如果没有定义，从
+配置文件里解析出来的变量将没有地方存储，因此会报错。

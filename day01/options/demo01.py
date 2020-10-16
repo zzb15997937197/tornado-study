@@ -2,7 +2,7 @@ from abc import ABC
 
 import tornado.ioloop
 import tornado.web
-import tornado.options
+from tornado.options import options, define
 
 '''
 tornado.web  是tornado框架的核心web模块。
@@ -11,7 +11,7 @@ ioloop是通过循环，等待客户端连接，以保持长连接的特性。
 
 '''
 
-tornado.options.options.define("port", default=8008, type=int)
+define("port", default=8008, type=int)
 
 
 class MainHandler(tornado.web.RequestHandler, ABC):
@@ -24,7 +24,8 @@ if __name__ == "__main__":
         (r"/", MainHandler),
     ])
     # 使用options定义全局的参数
-    app.listen(tornado.options.options.port)
+    app.listen(options.port)
     # # 使用options解析配置文件
-    # tornado.options.parse_config_file("config")
+    print("端口为:", options.port)
+    # tornado.options.parse_config_file("options")
     tornado.ioloop.IOLoop.current().start()
