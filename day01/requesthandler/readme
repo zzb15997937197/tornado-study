@@ -6,3 +6,9 @@
         # localhost:8008/hello?username=张&password=123456&address=1&address=2
         # adress : ['1','2']
  2. prepare()和on_finish()方法分别用来准备资源和释放资源。
+
+
+ 3. get_body_argument(name) 用来获取Post请求里的body的form_data里的参数。
+
+ 4. RequestHandler里的request属性返回的是 tornado.httputil.HTTPServerRequest对象实例的属性
+     request属性能够获取到有关HTTP请求的一切相关信息，如ip地址、主机地址。
