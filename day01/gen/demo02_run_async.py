@@ -1,5 +1,6 @@
 # 利用python的协程技术，可以开发出类似同步代码的异步行为，因为协程不需要使用线程，减少了线程上下文切换的资源消耗。
 import tornado.gen
+import tornado.web
 from tornado import gen
 from tornado.ioloop import IOLoop
 from tornado.httpclient import AsyncHTTPClient
@@ -20,12 +21,20 @@ def outer_visit():
     print("结束")
 
 
+class CoroutineHandler(tornado.web.RequestHandler):
+
+    def get(self, *args, **kwargs):
+        self.write("异步请求开始")
+        print("异步请求开始")
+        self.write("<br>")
+        IOLoop.current().spawn_callback(coroutine_visit)
+        self.write("异步请求完成")
+        print("异步请求完毕")
+
+
 if __name__ == "__main__":
-    # 启动IOLooP->调用被lambda封装的协程函数-> 停止IOLoop
-    # IOLoop.current().start()
-    print("start a coroutine")
-    # run_sync() 阻塞当前函数的执行
-    IOLoop.current().run_sync(lambda: coroutine_visit())
-    # spawn_callback() 不会等待当前函数的执行，因此 前后的print()语句都会被打印出来。
-    # IOLoop.current().spawn_callback(coroutine_visit)
-    print("end a coroutine")
+    app = tornado.web.Application([
+        (r"/hello", CoroutineHandler)
+    ])
+    app.listen(8003)
+    tornado.ioloop.IOLoop.current().start()
