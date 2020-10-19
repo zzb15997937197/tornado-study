@@ -53,7 +53,7 @@ def send_time():
     while True:
         for key in clients.keys():
             msg = str(datetime.datetime.now())
-            clients[key]["object"].write_message(str)
+            clients[key]["object"].write_message(msg)
             print("write to client %s:%s" % (key, msg))
         time.sleep(1)
 
@@ -64,7 +64,7 @@ app = tornado.web.Application([
 ])
 
 if __name__ == "__main__":
-    threading.Thread(target=send_time()).start()
+    threading.Thread(target=send_time).start()
     parse_command_line()
     app.listen(options.port)
     tornado.ioloop.IOLoop.instance().start()
