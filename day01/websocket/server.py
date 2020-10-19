@@ -65,6 +65,6 @@ app = tornado.web.Application([
 
 if __name__ == "__main__":
     threading.Thread(target=send_time()).start()
-    # parse_command_line()
+    parse_command_line()
     app.listen(options.port)
     tornado.ioloop.IOLoop.instance().start()
