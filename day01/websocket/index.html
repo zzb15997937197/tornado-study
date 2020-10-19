@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>系统首页</title>
+
+
+</head>
+<body>
+欢迎您!<br>
+<a href="javascript:WebSocketTest()">启动websocket</a>
+<div id="messages" style="height:200px;backgroud:black;color:white;"></div>
+</body>
+
+
+<script type="text/javascript">
+
+    var message_editors=document.getElementById("messages")
+    function WebSocketTest(){
+
+      if ("WebSocket" in window){
+             message_editors.innerHTML="websocket is supported by windows"
+             var ws=new WebSocket("ws://localhost:8888/websocket?id=12345")
+             console.log(ws)
+              alert("启动websocket!")
+             ws.open=function(){
+                 ws.send("message to send");
+             }
+
+             ws.onmessage=function(evt){
+                var recevied_msg=evt.data
+                message_editors.innerHTML=message_editors.innerHTML+"<br/>message is reveived:"+recevied_msg
+             }
+
+             ws.onclose=function(){
+                message_editors.innerHTML=message_editors.innerHTML+"<br/>connection is closed..."
+             }
+      }else{
+          message_editors.innerHTML="websocket not supported by your brower!"
+          alert("不支持websockt!")
+      }
+    }
+</script>
+</html>

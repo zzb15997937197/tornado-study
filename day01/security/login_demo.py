@@ -1,5 +1,8 @@
 '''
 使用get_secure_cookie()和set_secure_cookie()替换原来的get_cookie()和set_cookie()方法
+案例实现:  身份验证框架
+1) 用户大于等于3个即可登录。
+
 '''
 import tornado.web
 from tornado.web import Application
@@ -11,13 +14,16 @@ dict_sessions = {}
 
 class BaseHandler(tornado.web.RequestHandler):
 
-    # current_user为 RequestHandler里方法
+    # current_user为 RequestHandler里的属性，为只读，因此需要使用get_current_user()方法为其赋值。
     def get_current_user(self):
-        print([x for x in dict_sessions])
-        session_id = self.get_secure_cookie("session_id")
+        print(dict_sessions)
+        session_id = self.get_secure_cookie("session")
         if session_id is None:
-            return "无用户"
-        return dict_sessions[session_id]
+            return
+        session = session_id.decode("utf-8")
+        if session not in dict_sessions:
+            return
+        return dict_sessions[session]
 
 
 class MainHandler(BaseHandler):
@@ -25,7 +31,7 @@ class MainHandler(BaseHandler):
     @tornado.web.authenticated
     def get(self):
         name = tornado.escape.xhtml_escape(self.current_user)
-        self.write("hello" + name)
+        self.write("hello,用户:" + name + "!")
 
 
 class LoginHandler(BaseHandler):
@@ -48,17 +54,17 @@ class LoginHandler(BaseHandler):
 
     # 验证用户是否允许登录，不允许登录那么跳转至登录页面
     def post(self, *args, **kwargs):
-        # 登录规则，名字长度为3个才允许登录
+        # 登录规则，名字长度大于或等于3个才允许访问，否则需要输入用户名和密码
         name = self.get_argument("name")
         if len(name) < 3:
             self.redirect("/login")
             session_id = str(uuid.uuid4())
-            dict_sessions[session_id] = name
-            self.set_cookie("session_id", session_id)
-            print(self.get_cookie("session_id"))
-            print("登录成功!")
+            self.set_secure_cookie("session", session_id)
+            dict_sessions[self.get_secure_cookie("session").decode("utf-8")] = name
+            print(self.get_cookie("session"))
+            print(self.get_secure_cookie("session"))
         else:
-            print("name无效,请输出长度大于3的name!")
+            self.write("允许访问!")
 
 
 if __name__ == "__main__":
