@@ -16,7 +16,7 @@ class IndexHandler(tornado.web.RequestHandler):
     # 异步访问
     @tornado.web.asynchronous
     def get(self):
-        print("访问系统首页...")
+        print("访问系统首页,端口号为:", options.port)
         self.render("index.html")
 
 
@@ -32,6 +32,7 @@ class MyWebSocketHandler(tornado.websocket.WebSocketHandler):
 
     # 客户收到消息将被调用
     def on_message(self, message):
+        print("端口号为:", options.port)
         print("client %s received a message: %s" % (self.id, message))
 
     # 关闭连接时被调用
@@ -59,7 +60,7 @@ def send_time():
 
 
 app = tornado.web.Application([
-    (r"/", IndexHandler),
+    (r"/call", IndexHandler),
     (r"/websocket", MyWebSocketHandler)
 ])
 
@@ -67,4 +68,5 @@ if __name__ == "__main__":
     threading.Thread(target=send_time).start()
     parse_command_line()
     app.listen(options.port)
+    print("端口号为:", options.port)
     tornado.ioloop.IOLoop.instance().start()
