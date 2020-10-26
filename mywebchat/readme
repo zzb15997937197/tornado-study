@@ -6,3 +6,23 @@
 3.可以添加好友，如果好友上线，那么通知好友上线。
 
 左侧显示用户列表，右侧显示聊天记录
+
+问题记录:
+
+1) jquery的版本问题，会导致有些访问用不了！
+2) websocket 连接不上的问题!
+chat.js:45 WebSocket connection to 'ws://localhost:8888/chat_socket' failed: Connection closed before receiving a handshake response
+start @ chat.js:45
+chat.js:23 WebSocket is already in CLOSING or CLOSED state.
+
+3) 页面加载时报错
+AttributeError: 'ChatSocketHandler' object has no attribute '_prepared_future'
+ttributeError: 'ChatSocketHandler' object has no attribute 'request'
+
+解决方案:
+检查在__init__()方法是否使用正确!
+如果有继承的话，那么需要使用super().__init__(appication,request,**kwargs) 此行代码。
+  def __init__(self, application, request, username=None, client_id=None, **kwargs):
+        self.username = username
+        self.client_id = client_id
+        super().__init__(application, request, **kwargs)

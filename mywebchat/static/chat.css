@@ -1,0 +1,20 @@
+#users {
+    position: absolute;
+    /＊ 使用left、bottom等属性定义位置 ＊/
+    color: red;width: 150px;left: 0px;
+    /＊ 显示在最左侧 ＊/
+    bottom: 0;
+    /＊ 显示在底部 ＊/
+    border-right:1px solid #000;
+    /＊ 显示两个板块之间的分割条＊/
+}
+#right {
+    /＊ 使用left、bottom等属性定义位置 ＊/
+    position: absolute;
+    color: green;
+    left: 160px;
+    /＊ 在距离左边框160px的位置显示＊/
+    bottom: 0;
+    /＊ 显示在底部 ＊/
+    width: 600px;
+}
