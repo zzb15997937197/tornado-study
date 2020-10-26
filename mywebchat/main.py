@@ -1,5 +1,5 @@
 import tornado.ioloop
-from wechat.application import IndexApplication
+from mywebchat.application import IndexApplication
 from tornado.options import options, define, parse_command_line, parse_config_file
 
 define("port", default=8888, help="run port")

@@ -1,7 +1,7 @@
 '''
 定义路由!
 '''
-from wechat.views.index_handler import IndexHandler
+from mywebchat.views.index_handler import IndexHandler
 
 import tornado.web
 
