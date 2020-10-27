@@ -1,5 +1,5 @@
 基于Tornado+jQuery开发WebSocket聊天室
-
+python 版本 3.8
 功能列表:
 1.显示当前在线用户。
 2.所有在线用户可以在网页上聊天。

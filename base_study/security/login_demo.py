@@ -30,7 +30,10 @@ class MainHandler(BaseHandler):
 
     @tornado.web.authenticated
     def get(self):
+        # tornado.escape.xhtml_escape()方法用来转义字符串或者方法，self.current_user表示的是方法
+        # 转义<,>,",',&, 对xml或者html有效
         name = tornado.escape.xhtml_escape(self.current_user)
+        print("转义前:" + self.current_user, "转义后:", name)
         self.write("hello,用户:" + name + "!")
 
 

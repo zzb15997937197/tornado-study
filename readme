@@ -1,0 +1,13 @@
+1. tornado.escape.xhtml_escape(value)
+   用法: 转义字符串或者方法里的特殊符号，如: <,>,",'和&, 以便在HTML或者XML中有效
+
+2. tornado.escape.xhtml_unescape(value)
+   取消XML和HTML转义的字符串或者方法
+
+3. tornado.escape.url_escape(value,[lue=True)
+    返回给定值的URL编码版本
+
+4. tornado.escape.url_unescape(value,encoding="utf-8")
+   从编码的Url中进行解码
+
+5.
