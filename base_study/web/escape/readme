@@ -1,6 +1,7 @@
-escape用法小结:
+tornado.escape用法小结:
 
 1. 使用xhtml_escape() 转义字符。
 2. 使用json_decode()和json_encode()  实现python对象与json字符串互相转换。
 3. 使用utf8() 和to_unicode() 实现字符串与字节相互转换。
 4. 使用linkify() 将文本url转换为html里的a标签。
+5. 使用squeeze() 可以压缩字符串的空格，单词之间的空白使用一个空格进行替代。
