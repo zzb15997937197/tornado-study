@@ -30,7 +30,7 @@ class MyWebSocketHandler(tornado.websocket.WebSocketHandler):
         print(clients)
         print("建立连接...")
 
-    # 客户收到消息将被调用
+    # 服务器收到消息
     def on_message(self, message):
         print("端口号为:", options.port)
         print("client %s received a message: %s" % (self.id, message))
